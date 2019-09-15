@@ -1,19 +1,33 @@
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import React, { useState } from 'react';
+import { StyleSheet, Text, View, TextInput, Button, ScrollView, FlatList } from 'react-native';
+
+import TaskItem from "./components/TaskItem";
+import TaskInput from "./components/TaskInput";
 
 export default function App() {
-  return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-    </View>
-  );
+
+	const [tasks, setTasks] = useState([]);
+
+	const addTaskHandler =  taskTitle => {
+		setTasks( currentTasks => [...currentTasks, { key: Math.random().toString(), value: taskTitle }] );
+	};
+
+	return (
+		<View style={styles.screeen}>
+			<TaskInput onaddTask={addTaskHandler} />
+			<FlatList
+				data={tasks}
+				renderItem={ itemData => <TaskItem title={itemData.item.value} /> }
+			/>
+		</View>
+	);
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
+	screeen :
+	{
+		padding: 50	
+	},
+
+
 });
