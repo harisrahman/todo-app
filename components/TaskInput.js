@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { StyleSheet, Text, View, TextInput, Button, ScrollView, FlatList } from 'react-native';
+import { StyleSheet, View, TextInput, Button, Modal } from 'react-native';
 
 const TaskInput = props => {
 
@@ -10,15 +10,17 @@ const TaskInput = props => {
 	};
 	
 	return (
-		<View style={styles.inputContainer}>
-			<TextInput
-				placeholder="Enter Task Name"
-				style={styles.TextInput}
-				onChangeText={taskInputHandler}
-				value={enteredTask}
-			/>
-			<Button title="Add" onPress={props.onaddTask.bind(this, enteredTask)}></Button>
-		</View>
+		<Modal>
+			<View style={styles.inputContainer}>
+				<TextInput
+					placeholder="Enter Task Name"
+					style={styles.TextInput}
+					onChangeText={taskInputHandler}
+					value={enteredTask}
+				/>
+				<Button title="Add" onPress={props.onaddTask.bind(this, enteredTask)}></Button>
+			</View>
+		</Modal>
 	);
 };
 
