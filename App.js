@@ -7,25 +7,34 @@ import TaskInput from "./components/TaskInput";
 export default function App() {
 
 	const [tasks, setTasks] = useState([]);
-	const [isAddMode, setAddMode] = useState(false);
+	const [isAddMode, setIsAddMode] = useState(false);
 
 	const addTaskHandler =  taskTitle => {
-		setTasks( currentTasks => [...currentTasks, { key: Math.random().toString(), value: taskTitle }] );
+		setTasks( currentTasks => [
+			...currentTasks,
+			{ key: Math.random().toString(), value: taskTitle }
+		]);
+		setIsAddMode(false);
 	};
 
-	const removeTaskHandler = taskId => {
+	const removeTaskHandler = taskKey => {
 		setTasks( currentTasks =>
 		{
-			return currentTasks.filter((task) => task.id !== taskId);
+			return currentTasks.filter((task) => task.key !== taskKey);
 		});
+	};
+
+	const cancelAddTaskHandler = () => {
+		setIsAddMode(false);
 	};
 
 	return (
 		<View style={styles.screeen}>
-			<TaskInput onaddTask={addTaskHandler} />
+			<Button title="Add New Goal"  onPress={() => setIsAddMode(true)} />
+			<TaskInput isVisible={isAddMode} onaddTask={addTaskHandler} onCancel={cancelAddTaskHandler} />
 			<FlatList
 				data={tasks}
-				renderItem={ itemData => <TaskItem id={itemData.item.id} title={itemData.item.value} onDelete={removeTaskHandler} /> }
+				renderItem={ itemData => <TaskItem id={itemData.item.key} title={itemData.item.value} onDelete={removeTaskHandler} /> }
 			/>
 		</View>
 	);
@@ -35,7 +44,5 @@ const styles = StyleSheet.create({
 	screeen :
 	{
 		padding: 50	
-	},
-
-
+	}
 });

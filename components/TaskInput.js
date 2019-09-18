@@ -8,9 +8,14 @@ const TaskInput = props => {
 	const taskInputHandler =  (enteredText) => {
 		setEnteredTask(enteredText);
 	};
+
+	const addTaskHandler =  () => {
+		props.onaddTask(enteredTask);
+		setEnteredTask("");
+	};
 	
 	return (
-		<Modal visible={false}>
+		<Modal visible={props.isVisible} animationType="slide">
 			<View style={styles.inputContainer}>
 				<TextInput
 					placeholder="Enter Task Name"
@@ -18,7 +23,14 @@ const TaskInput = props => {
 					onChangeText={taskInputHandler}
 					value={enteredTask}
 				/>
-				<Button title="Add" onPress={props.onaddTask.bind(this, enteredTask)}></Button>
+				<View style={styles.buttonContainer}>
+					<View style={styles.button}>
+						<Button title="CANCEL" color="red" onPress={props.onCancel} />
+					</View>
+					<View style={styles.button}>
+						<Button title="ADD" onPress={addTaskHandler} />
+					</View>
+				</View>
 			</View>
 		</Modal>
 	);
@@ -28,19 +40,30 @@ const styles = StyleSheet.create({
 
 	inputContainer :
 	{
-		flexDirection: "row",
-		alignItems: "center"
+		flex: 1,
+		alignItems: "center",
+		justifyContent: "center"
 	},
 	TextInput :
 	{
-		flex: 1,
-		marginRight: 10,
+		width: "80%",
+		marginBottom: 10,
 		borderColor: '#ced4da',
 		borderRadius: 4,
 		borderWidth: 1,
 		padding: 10
 	},
-
+	buttonContainer :
+	{
+		width: "60%",
+		flexDirection: "row",
+		justifyContent: "center"
+	},
+	button :
+	{
+		width: "50%",
+		marginRight: 10,
+	}
 });
 
 export default TaskInput;
