@@ -7,6 +7,7 @@ import TaskInput from "./components/TaskInput";
 export default function App() {
 
 	const [tasks, setTasks] = useState([]);
+	const [isAddMode, setAddMode] = useState(false);
 
 	const addTaskHandler =  taskTitle => {
 		setTasks( currentTasks => [...currentTasks, { key: Math.random().toString(), value: taskTitle }] );

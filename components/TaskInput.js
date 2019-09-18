@@ -10,7 +10,7 @@ const TaskInput = props => {
 	};
 	
 	return (
-		<Modal>
+		<Modal visible={false}>
 			<View style={styles.inputContainer}>
 				<TextInput
 					placeholder="Enter Task Name"
