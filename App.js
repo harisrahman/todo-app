@@ -10,6 +10,8 @@ export default function App() {
 	const [isAddMode, setIsAddMode] = useState(false);
 
 	const addTaskHandler =  taskTitle => {
+		if(taskTitle.length === 0) return;
+
 		setTasks( currentTasks => [
 			...currentTasks,
 			{ key: Math.random().toString(), value: taskTitle }
